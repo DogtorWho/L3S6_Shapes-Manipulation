@@ -83,7 +83,7 @@ class Segment : public Shape {
      * @brief visit the segment
      * @param v the visitor of the segment
      */
-    void accept(const VisitorShape *v) const;
+    void accept(VisitorShape *v) const;
 
     /**
      * @fn operator std::string()

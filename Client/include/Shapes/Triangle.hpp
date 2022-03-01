@@ -106,7 +106,7 @@ class Triangle : public Shape {
      * @brief visit the triangle
      * @param v the visitor of the triangle
      */
-    void accept(const VisitorShape *v) const;
+    void accept(VisitorShape *v) const;
 
     /**
      * @fn operator std::string()

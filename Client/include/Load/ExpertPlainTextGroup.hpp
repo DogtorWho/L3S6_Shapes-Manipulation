@@ -33,8 +33,7 @@ class ExpertPlainTextGroup : public ExpertPlainText {
       }
 
       if(parsedMessage[0] == "GROUP"){
-        std::cout << "cc\n";
-        ShapeColor color = (ShapeColor)std::stoi(parsedMessage[1].c_str());
+        /*ShapeColor color = (ShapeColor)std::stoi(parsedMessage[1].c_str());
         std::vector<Shape*> shapes;
 
         std::string shape;
@@ -51,7 +50,7 @@ class ExpertPlainTextGroup : public ExpertPlainText {
           }
         }
 
-        return new Group(shapes, color);
+        return new Group(shapes, color);*/
       }
       return NULL;
     }

@@ -124,7 +124,7 @@ class Group : public Shape {
      * @brief visit the group
      * @param v the visitor of the group
      */
-    void accept(const VisitorShape *v) const;
+    void accept(VisitorShape *v) const;
 
     /**
      * @fn operator std::string()

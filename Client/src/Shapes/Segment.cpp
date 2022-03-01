@@ -30,6 +30,6 @@ double Segment::getArea() const {
   return 0.f;
 }
 
-void Segment::accept(const VisitorShape *v) const {
+void Segment::accept(VisitorShape *v) const {
   v->visit(this);
 }

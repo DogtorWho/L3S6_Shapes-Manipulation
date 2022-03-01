@@ -46,6 +46,6 @@ double Triangle::getArea() const {
   return abs( (AB^AC) / 2.f );*/
 }
 
-void Triangle::accept(const VisitorShape *v) const {
+void Triangle::accept(VisitorShape *v) const {
   v->visit(this);
 }

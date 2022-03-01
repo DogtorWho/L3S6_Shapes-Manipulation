@@ -66,10 +66,10 @@ int main() {
     tests->printExportedShapes();
     tests->printShapes();
 
-    //tests->drawShapesRaylib();
-    tests->drawShapesServer();
+    tests->drawShapesRaylib();
+    //tests->drawShapesServer();
 
-    //tests->saveShapesPlainText();
+    tests->saveShapesPlainText();
 
 
 

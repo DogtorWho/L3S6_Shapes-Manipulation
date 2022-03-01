@@ -18,35 +18,35 @@ class Draw : public VisitorShape {
      * @brief visit a segment
      * @param s the segment to draw
      */
-    virtual void visit(const Segment *s) const = 0;
+    virtual void visit(const Segment *s) = 0;
 
     /**
      * @fn void visit(const Triangle *t)
      * @brief visit a triangle
      * @param t the triangle to draw
      */
-    virtual void visit(const Triangle *t) const = 0;
+    virtual void visit(const Triangle *t) = 0;
 
     /**
      * @fn void visit(const Circle *c)
      * @brief visit a circle
      * @param c the circle to draw
      */
-    virtual void visit(const Circle *c) const = 0;
+    virtual void visit(const Circle *c) = 0;
 
     /**
      * @fn void visit(const Polygon *p)
      * @brief visit a polygon
      * @param p the polygon to draw
      */
-    virtual void visit(const Polygon *p) const = 0;
+    virtual void visit(const Polygon *p) = 0;
 
     /**
      * @fn void visit(const Group *g)
      * @brief visit a group
      * @param g the group to draw
      */
-    virtual void visit(const Group *g) const = 0;
+    virtual void visit(const Group *g) = 0;
 };
 
 #endif

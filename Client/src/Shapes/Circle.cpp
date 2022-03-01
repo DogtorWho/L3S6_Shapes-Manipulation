@@ -25,6 +25,6 @@ double Circle::getArea() const {
   return ( M_PI * (_radius * _radius) );
 }
 
-void Circle::accept(const VisitorShape *v) const {
+void Circle::accept(VisitorShape *v) const {
   v->visit(this);
 }

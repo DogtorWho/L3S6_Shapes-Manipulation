@@ -97,7 +97,7 @@ class Shape {
      * @brief visit the shape
      * @param v the visitor of the shape
      */
-    virtual void accept(const VisitorShape *v) const = 0;
+    virtual void accept(VisitorShape *v) const = 0;
 
     /**
      * @fn operator std::string()

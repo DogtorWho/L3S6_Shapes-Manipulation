@@ -31,6 +31,6 @@ double Group::getArea() const {
   return area;
 }
 
-void Group::accept(const VisitorShape *v) const {
+void Group::accept(VisitorShape *v) const {
   v->visit(this);
 }

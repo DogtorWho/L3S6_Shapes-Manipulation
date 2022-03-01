@@ -83,7 +83,7 @@ class Circle : public Shape {
      * @brief visit the circle
      * @param v the visitor of the circle
      */
-    void accept(const VisitorShape *v) const;
+    void accept(VisitorShape *v) const;
 
     /**
      * @fn operator std::string()

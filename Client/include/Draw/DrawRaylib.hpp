@@ -43,7 +43,7 @@ class DrawRaylib : public Draw {
      * @brief visit a segment
      * @param s the segment to draw with raylib
      */
-    void visit(const Segment *s) const {
+    void visit(const Segment *s) {
       Vector2 v1 = {(float)s->getA().getPosX(), (float)s->getA().getPosY()};
       Vector2 v2 = {(float)s->getB().getPosX(), (float)s->getB().getPosY()};
       DrawLineV(v1, v2, _colors[s->getColor()]);
@@ -54,7 +54,7 @@ class DrawRaylib : public Draw {
      * @brief visit a triangle
      * @param t the triangle to draw with raylib
      */
-    void visit(const Triangle *t) const {
+    void visit(const Triangle *t) {
       Vector2 v1 = {(float)t->getA().getPosX(), (float)t->getA().getPosY()};
       Vector2 v2 = {(float)t->getB().getPosX(), (float)t->getB().getPosY()};
       Vector2 v3 = {(float)t->getC().getPosX(), (float)t->getC().getPosY()};
@@ -66,7 +66,7 @@ class DrawRaylib : public Draw {
      * @brief visit a circle
      * @param c the circle to draw with raylib
      */
-    void visit(const Circle *c) const {
+    void visit(const Circle *c) {
       DrawCircle(c->getCenter().getPosX(), c->getCenter().getPosY(), c->getRadius(), _colors[c->getColor()]);
     }
 
@@ -75,7 +75,7 @@ class DrawRaylib : public Draw {
      * @brief visit a polygon
      * @param p the polygon to draw with raylib
      */
-    void visit(const Polygon *p) const {
+    void visit(const Polygon *p) {
       Vector2 center = {(float)p->getCentroid()->getPosX(), (float)p->getCentroid()->getPosY()};
       DrawPoly(center, p->getPoints().size(), 100, 0, _colors[p->getColor()]);
     }
@@ -85,7 +85,7 @@ class DrawRaylib : public Draw {
      * @brief visit a group
      * @param g the group to draw with raylib
      */
-    void visit(const Group *g) const {
+    void visit(const Group *g) {
       for(auto &shape : g->getShapes()){
         shape->setColor(g->getColor());
         shape->accept(this);

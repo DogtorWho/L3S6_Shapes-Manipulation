@@ -11,9 +11,10 @@
 #include <fstream>
 #include <filesystem>
 
-int cpt_seg, cpt_tri, cpt_cir, cpt_pol, cpt_grp;
-
 class SavePlainText : public Save {
+  private :
+    int cpt_seg, cpt_tri, cpt_cir, cpt_pol, cpt_grp;
+
   public :
     /**
      * @fn SavePlainText()
@@ -39,7 +40,7 @@ class SavePlainText : public Save {
      * @brief visit a segment
      * @param s the segment to save in a plain text format
      */
-    void visit(const Segment *s) const {
+    void visit(const Segment *s) {
       std::string filename = "segment_" + std::to_string(cpt_seg);
       save_in_file(s, filename);
       cpt_seg++;
@@ -50,7 +51,7 @@ class SavePlainText : public Save {
      * @brief visit a triangle
      * @param t the triangle to save in a plain text format
      */
-    void visit(const Triangle *t) const {
+    void visit(const Triangle *t) {
       std::string filename = "triangle_" + std::to_string(cpt_tri);
       save_in_file(t, filename);
       cpt_tri++;
@@ -61,7 +62,7 @@ class SavePlainText : public Save {
      * @brief visit a circle
      * @param c the circle to save in a plain text format
      */
-    void visit(const Circle *c) const {
+    void visit(const Circle *c) {
       std::string filename = "circle_" + std::to_string(cpt_cir);
       save_in_file(c, filename);
       cpt_cir++;
@@ -72,7 +73,7 @@ class SavePlainText : public Save {
      * @brief visit a polygon
      * @param p the polygon to save in a plain text format
      */
-    void visit(const Polygon *p) const {
+    void visit(const Polygon *p) {
       std::string filename = "polygon_" + std::to_string(cpt_pol);
       save_in_file(p, filename);
       cpt_pol++;
@@ -83,10 +84,23 @@ class SavePlainText : public Save {
      * @brief visit a group
      * @param g the group to save in a plain text format
      */
-    virtual void visit(const Group *g) const {
-      std::string filename = "group_" + std::to_string(cpt_grp);
-      save_in_file(g, filename);
+    virtual void visit(const Group *g) {
+      _filepath += "/group_" + std::to_string(cpt_grp) + "/";
+      std::string cmd = "mkdir " + _filepath;
+      system(cmd.c_str());
+
+      std::ofstream o;
+      std::string fd = _filepath + "color";
+      o.open(fd, std::ofstream::app);
+      o << std::to_string(g->getColor());
+      o.close();
+
       cpt_grp++;
+      for(auto &shape : g->getShapes()){
+        shape->accept(this);
+      }
+
+      _filepath = "build/objects/save/plainText/"; //reset the path
     }
 
     void save_in_file(const Shape *shape, std::string filename) const {

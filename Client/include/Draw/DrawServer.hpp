@@ -29,7 +29,7 @@ class DrawServer : public Draw {
      * @brief visit a segment
      * @param s the segment to draw in the server
      */
-    void visit(const Segment *s) const {
+    void visit(const Segment *s) {
       std::string msg = s->export_to_string() + "\n";
       TCP::getInstance()->send_to_server(msg);
     }
@@ -39,7 +39,7 @@ class DrawServer : public Draw {
      * @brief visit a triangle
      * @param t the triangle to draw in the server
      */
-    void visit(const Triangle *t) const {
+    void visit(const Triangle *t) {
       std::string msg = t->export_to_string() + "\n";
       TCP::getInstance()->send_to_server(msg);
     }
@@ -49,7 +49,7 @@ class DrawServer : public Draw {
      * @brief visit a circle
      * @param c the circle to draw int the server
      */
-    void visit(const Circle *c) const {
+    void visit(const Circle *c) {
       std::string msg = c->export_to_string() + "\n";
       TCP::getInstance()->send_to_server(msg);
     }
@@ -59,7 +59,7 @@ class DrawServer : public Draw {
      * @brief visit a polygon
      * @param p the polygon to draw in the server
      */
-    void visit(const Polygon *p) const {
+    void visit(const Polygon *p) {
       std::string msg = p->export_to_string() + "\n";
       TCP::getInstance()->send_to_server(msg);
     }
@@ -69,7 +69,7 @@ class DrawServer : public Draw {
      * @brief visit a group
      * @param g the group to draw in the server
      */
-    void visit(const Group *g) const {
+    void visit(const Group *g) {
       for(auto &shape : g->getShapes()){
         shape->setColor(g->getColor());
         shape->accept(this);

@@ -63,6 +63,6 @@ double Polygon::getArea() const {
   return area;
 }
 
-void Polygon::accept(const VisitorShape *v) const {
+void Polygon::accept(VisitorShape *v) const {
   v->visit(this);
 }

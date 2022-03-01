@@ -126,7 +126,7 @@ class Polygon : public Shape {
      * @brief visit the polygon
      * @param v the visitor of the polygon
      */
-    void accept(const VisitorShape *v) const;
+    void accept(VisitorShape *v) const;
 
     /**
      * @fn operator std::string()
