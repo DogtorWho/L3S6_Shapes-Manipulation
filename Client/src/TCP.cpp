@@ -20,6 +20,12 @@ void TCP::send_to_server(std::string msg){
 }
 
 void TCP::disconnect_from_server(){
-  shutdown(_socket, 2);
-  close(_socket);
+  if(shutdown(_socket, SHUT_RD) < 0)
+    throw Error("TCP::disconnect_from_server::shutdown of reading failed");
+
+  if(shutdown(_socket, SHUT_WR) < 0)
+    throw Error("TCP::disconnect_from_server::shutdown of writing failed");
+
+  if(close(_socket) < 0)
+    throw Error("TCP::disconnect_from_server::closing failed");
 }

@@ -12,6 +12,9 @@ void Triangle::translate(Vector2f v){
 }
 
 void Triangle::homothety(Vector2f v, double zoom){
+  if(zoom == 0.f)
+    throw Error("Triangle::homothety::zoom can't be 0");
+
   _a.setPosX((zoom * (_a.getPosX() - v.getPosX())) + v.getPosX());
   _a.setPosY((zoom * (_a.getPosY() - v.getPosY())) + v.getPosY());
 

@@ -12,6 +12,9 @@ void Polygon::translate(Vector2f v){
 }
 
 void Polygon::homothety(Vector2f v, double zoom){
+  if(zoom == 0.f)
+    throw Error("Polygon::homothety::zoom can't be 0");
+
   for(auto &point : _points){
     point->setPosX((zoom * (point->getPosX() - v.getPosX())) + v.getPosX());
     point->setPosY((zoom * (point->getPosY() - v.getPosY())) + v.getPosY());

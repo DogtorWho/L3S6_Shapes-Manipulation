@@ -5,6 +5,9 @@
 
 #include <vector>
 #include <fstream>
+#include <sys/stat.h>
+#include <cstdlib>
+#include <dirent.h>
 
 class ExpertPlainTextGroup : public ExpertPlainText {
   public:
@@ -12,47 +15,56 @@ class ExpertPlainTextGroup : public ExpertPlainText {
 
   protected:
     Shape* resolve1(const std::string &s) const {
-      std::string file_content;
-      std::ifstream file;
-      file.open(s);
-      if(file.is_open()){
-        std::string tmp;
-        while(getline(file, tmp)){
-          file_content += tmp;
-        }
-        file.close();
-      }
+      if(s.back() == '/'){ // the string is a folder path
+        DIR *pdir = NULL;
+        pdir = opendir(s.c_str());
+        struct dirent *pent = NULL;
 
-      std::vector<std::string> parsedMessage;
-      std::stringstream s_stream(file_content);
-
-      while(s_stream.good()){
-        std::string substr;
-        getline(s_stream, substr, ';');
-        parsedMessage.push_back(substr);
-      }
-
-      if(parsedMessage[0] == "GROUP"){
-        /*ShapeColor color = (ShapeColor)std::stoi(parsedMessage[1].c_str());
+        ShapeColor color = SHAPE_BLACK;
         std::vector<Shape*> shapes;
 
-        std::string shape;
-        for(int i = 2; i < (int)parsedMessage.size(); i++){
-          if(parsedMessage[i] != "END"){
-            shape += parsedMessage[i];
-            shape += ";";
+        while((pent = readdir(pdir))){ // read all the content of the folder
+          if(pent->d_type == DT_DIR){ // found a child folder
+            if((std::string)pent->d_name != "." && (std::string)pent->d_name != ".."){ // avoid the current and parent folder
+              std::cout << "FOLDER : ";
+              std::cout<< pent->d_name << std::endl;
+              std::string shape_path = s + (std::string)pent->d_name + "/";
+              std::cout<< "new path : " << shape_path << std::endl;
+              shapes.push_back(this->resolve(shape_path));
+            }
           }
-          else if(!shape.empty()){
-            shape += "END;";
-            shapes.push_back(this->resolve(shape));
-            std::cout << "shape: " << shapes[0] << std::endl;
-            shape = "";
+          else if(pent->d_type == DT_REG){ // found a file to parse
+            if((std::string)pent->d_name == "color"){ // get the color of the group
+              std::string file_content;
+              std::ifstream file;
+              file.open(s+"color");
+              if(file.is_open()){
+                std::string tmp;
+                getline(file, tmp);
+                color = (ShapeColor)std::stoi(tmp);
+                file.close();
+              }
+            }
+            else{ // found a possible shape to parse
+              std::string shape_path = s + (std::string)pent->d_name;
+
+              Shape* shape = this->resolve(shape_path);
+              if (shape != NULL)
+                shapes.push_back(shape);
+              /*else
+                throw Error("ExpertPlainTextGroup::resolve1::couldn't resolve the filename");*/
+            }
+          }
+          else{
+            throw Error("ExpertPlainTextGroup::resolve1::problem with the directory");
           }
         }
 
-        return new Group(shapes, color);*/
+        return new Group(shapes, color);
       }
-      return NULL;
+      else{ // the string is not a folder, so not a group
+        return NULL;
+      }
     }
 };
 

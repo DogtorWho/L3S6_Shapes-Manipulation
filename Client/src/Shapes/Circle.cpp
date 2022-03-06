@@ -10,6 +10,9 @@ void Circle::translate(Vector2f v){
 }
 
 void Circle::homothety(Vector2f v, double zoom){
+  if(zoom == 0.f)
+    throw Error("Circle::homothety::zoom can't be 0");
+
   _center.setPosX((zoom * (_center.getPosX() - v.getPosX())) + v.getPosX());
   _center.setPosY((zoom * (_center.getPosY() - v.getPosY())) + v.getPosY());
 

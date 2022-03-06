@@ -29,7 +29,12 @@ class Circle : public Shape {
      * @param rad the radius of the circle (default=0)
      * @param col color of the circle (default=SHAPE_BLACK)
      */
-    Circle(const Vector2f c = Vector2f(), double rad = 0, ShapeColor col = SHAPE_BLACK) : Shape(col), _center(c), _radius(rad) {}
+    Circle(const Vector2f c = Vector2f(), double rad = 0.f, ShapeColor col = SHAPE_BLACK) : Shape(col), _center(c) {
+      if(rad < 0.f)
+        throw Error("Circle::radius can't be negative");
+      else
+        _radius = rad;
+    }
 
     /**
      * @fn Circle(const Circle& c)

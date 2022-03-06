@@ -44,6 +44,7 @@ class Tests {
       _expertPlainText = new ExpertPlainTextSegment(_expertPlainText);
       _expertPlainText = new ExpertPlainTextGroup(_expertPlainText);
     }
+
     virtual ~Tests(){}
 
     std::vector<Shape*> getShapes() const { return _shapes; }
@@ -53,7 +54,11 @@ class Tests {
     }
 
     void addSavedPlainTextShape(std::string filename) {
-      _shapes.push_back(_expertPlainText->resolve(filename));
+      Shape* shape = _expertPlainText->resolve(filename);
+      if (shape == NULL)
+        throw Error("Tests::addSavedPlainTextShape::couldn't resolve the filename");
+      else
+      _shapes.push_back(shape);
     }
 
     void printShapes() const {
@@ -66,6 +71,12 @@ class Tests {
       std::cout << "\n === Export ===\n";
       for(auto &shape : _shapes)
         std::cout << shape->export_to_string() << "\n";
+    }
+
+    void printShapesArea() const {
+      std::cout << "\n === Area ===\n";
+      for(auto &shape : _shapes)
+        std::cout << "Shape Area = " << shape->getArea() << "\n";
     }
 
     void drawShapesRaylib() const {
@@ -106,6 +117,20 @@ class Tests {
         shape->accept(&save_text);
     }
 
+    void translateShapes(Vector2f trans){
+      for(auto &shape : _shapes)
+        shape->translate(trans);
+    }
+
+    void homothetyShapes(Vector2f homo, double zoom){
+      for(auto &shape : _shapes)
+        shape->homothety(homo, zoom);
+    }
+
+    void rotateShapes(Vector2f rota, double rad){
+      for(auto &shape : _shapes)
+        shape->rotate(rota, rad);
+    }
 };
 
 #endif

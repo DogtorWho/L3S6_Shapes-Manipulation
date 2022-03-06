@@ -15,8 +15,6 @@
 
 #include "Error.hpp"
 
-#define BUFFER 2048
-
 class TCP {
   private :
     // === Variables ===
@@ -29,9 +27,6 @@ class TCP {
      * @brief int containing the client socket
      */
     int _socket;
-
-    /** @TODO remove (obselete) */
-    char _data[BUFFER];
 
     /** @var _sockadrr
      * @brief sockaddr_in structure containing all info to communicate with the server
@@ -47,8 +42,6 @@ class TCP {
      * @param serv_port port of the server (default=9111)
      */
     TCP(std::string serv_ip = "127.0.0.1", int serv_port = 9111){
-      memset(_data, '0', sizeof(_data));
-
       _sockaddr.sin_family = AF_INET;
       _sockaddr.sin_addr.s_addr = inet_addr(serv_ip.c_str());
       _sockaddr.sin_port = htons(serv_port);

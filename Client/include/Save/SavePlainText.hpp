@@ -114,7 +114,8 @@ class SavePlainText : public Save {
     void remove_saves() const {
       //std::filesystem::remove_all(_filepath);
       std::string cmd = "rm -rf " + _filepath + "*";
-      system(cmd.c_str());
+      if(system(cmd.c_str()) < 0)
+        throw Error("SavePlainText::remove_saves::system command failed");      
     }
 };
 

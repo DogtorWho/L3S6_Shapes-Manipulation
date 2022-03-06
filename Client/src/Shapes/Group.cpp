@@ -12,6 +12,9 @@ void Group::translate(Vector2f v){
 }
 
 void Group::homothety(Vector2f v, double zoom){
+  if(zoom == 0.f)
+    throw Error("Group::homothety::zoom can't be 0");
+
   for(auto &shape : _shapes){
     shape->homothety(v, zoom);
   }
