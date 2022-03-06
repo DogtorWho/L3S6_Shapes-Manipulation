@@ -10,8 +10,6 @@ import expert.ExpertPolygon;
 import expert.ExpertSegment;
 import expert.ExpertShape;
 import expert.ExpertTriangle;
-
-import draw.DrawAWT;
 import draw.swing.DrawSwing;
 
 /**
@@ -54,9 +52,6 @@ public class ClientRequestManager extends Thread {
 					System.out.println(" Client n°" + this._NoConnexion + " send : ");
 					System.out.println(message);
 					
-					//DrawAWT drawingTool = new DrawAWT();
-					//DrawSwing drawingTool = new DrawSwing(480, 320);
-					
 					ExpertShape expert;
 					expert = new ExpertPolygon(null);
 					expert = new ExpertCircle(expert);
@@ -66,7 +61,7 @@ public class ClientRequestManager extends Thread {
 					if(!expert.resolve(message, drawingTool))
 						System.out.println("Incorrect string format");
 					
-					sleep(5);
+					sleep(1);
 				}
 			}
 		}
