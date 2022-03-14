@@ -1,5 +1,6 @@
 #include "Polygon.hpp"
 #include "VisitorShape.hpp"
+#include "WorldToScreen.hpp"
 
 #include <cmath>
 
@@ -67,5 +68,9 @@ double Polygon::getArea() const {
 }
 
 void Polygon::accept(VisitorShape *v) const {
+  v->visit(this);
+}
+
+void Polygon::accept(WorldToScreen *v) {
   v->visit(this);
 }

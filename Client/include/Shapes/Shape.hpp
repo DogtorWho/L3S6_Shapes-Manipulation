@@ -9,6 +9,7 @@
 #include "Vector2f.hpp"
 
 class VisitorShape;
+class WorldToScreen;
 
 /**
  * @enum ShapeColor
@@ -54,6 +55,9 @@ class Shape {
      */
     void setColor(ShapeColor c) { _color = c; }
 
+    virtual Vector2f getMin() const = 0;
+    virtual Vector2f getMax() const = 0;
+
     // === Functions ===
     /**
      * @fn void translate(Vector2f v)
@@ -98,6 +102,8 @@ class Shape {
      * @param v the visitor of the shape
      */
     virtual void accept(VisitorShape *v) const = 0;
+
+    virtual void accept(WorldToScreen *v) = 0;
 
     /**
      * @fn operator std::string()

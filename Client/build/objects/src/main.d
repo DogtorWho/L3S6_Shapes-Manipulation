@@ -14,4 +14,5 @@ build/objects/src/main.o: src/main.cpp include/Error.hpp \
  include/Load/ExpertPlainTextTriangle.hpp \
  include/Load/ExpertPlainTextCircle.hpp \
  include/Load/ExpertPlainTextPolygon.hpp \
- include/Load/ExpertPlainTextGroup.hpp
+ include/Load/ExpertPlainTextGroup.hpp include/WorldToScreen.hpp \
+ include/utils.hpp

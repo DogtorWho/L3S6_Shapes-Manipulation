@@ -11,7 +11,7 @@
 class Group : public Shape {
   private :
     // === Variables ===
-    /** @var _points
+    /** @var _shapes
      * @brief array of Shape stocking the all the shapes of the group
      */
     std::vector<Shape*> _shapes;
@@ -100,6 +100,32 @@ class Group : public Shape {
         _shapes.erase(_shapes.begin() + i);
     }
 
+    Vector2f getMin() const {
+      Vector2f mini = _shapes[0]->getMin();
+
+      for(auto &shape : _shapes){
+        if(shape->getMin().getPosX() < mini.getPosX())
+          mini.setPosX(shape->getMin().getPosX());
+        if(shape->getMin().getPosY() < mini.getPosY())
+          mini.setPosY(shape->getMin().getPosY());
+      }
+
+      return mini;
+    }
+
+    Vector2f getMax() const {
+      Vector2f maxi = _shapes[0]->getMax();
+
+      for(auto &shape : _shapes){
+        if(shape->getMax().getPosX() > maxi.getPosX())
+          maxi.setPosX(shape->getMax().getPosX());
+        if(shape->getMax().getPosY() > maxi.getPosY())
+          maxi.setPosY(shape->getMax().getPosY());
+      }
+
+      return maxi;
+    }
+
     // === Functions ===
     void translate(Vector2f v);
     void homothety(Vector2f v, double zoom);
@@ -125,6 +151,8 @@ class Group : public Shape {
      * @param v the visitor of the group
      */
     void accept(VisitorShape *v) const;
+
+    void accept(WorldToScreen *v);
 
     /**
      * @fn operator std::string()

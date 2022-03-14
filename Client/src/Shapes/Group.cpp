@@ -1,5 +1,6 @@
 #include "Group.hpp"
 #include "VisitorShape.hpp"
+#include "WorldToScreen.hpp"
 
 #include <cmath>
 
@@ -35,5 +36,9 @@ double Group::getArea() const {
 }
 
 void Group::accept(VisitorShape *v) const {
+  v->visit(this);
+}
+
+void Group::accept(WorldToScreen *v) {
   v->visit(this);
 }

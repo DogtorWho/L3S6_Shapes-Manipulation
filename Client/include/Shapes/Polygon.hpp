@@ -102,6 +102,32 @@ class Polygon : public Shape {
         _points.erase(_points.begin() + i);
     }
 
+    Vector2f getMin() const {
+      Vector2f mini = *_points[0];
+
+      for(auto &point : _points){
+        if(point->getPosX() < mini.getPosX())
+          mini.setPosX(point->getPosX());
+        if(point->getPosY() < mini.getPosY())
+          mini.setPosY(point->getPosY());
+      }
+
+      return mini;
+    }
+
+    Vector2f getMax() const {
+      Vector2f maxi = *_points[0];
+
+      for(auto &point : _points){
+        if(point->getPosX() > maxi.getPosX())
+          maxi.setPosX(point->getPosX());
+        if(point->getPosY() > maxi.getPosY())
+          maxi.setPosY(point->getPosY());
+      }
+
+      return maxi;
+    }
+
     // === Functions ===
     void translate(Vector2f v);
     void homothety(Vector2f v, double zoom);
@@ -127,6 +153,8 @@ class Polygon : public Shape {
      * @param v the visitor of the polygon
      */
     void accept(VisitorShape *v) const;
+
+    void accept(WorldToScreen *v);
 
     /**
      * @fn operator std::string()

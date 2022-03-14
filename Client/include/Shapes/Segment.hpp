@@ -59,6 +59,31 @@ class Segment : public Shape {
      */
     const Vector2f& getB() const { return _b; }
 
+    void setA(Vector2f a) { _a = a; }
+    void setB(Vector2f b) { _a = b; }
+
+    Vector2f getMin() const {
+      Vector2f mini = _a;
+
+      if(_b.getPosX() < mini.getPosX())
+        mini.setPosX(_b.getPosX());
+      if(_b.getPosY() < mini.getPosY())
+        mini.setPosY(_b.getPosY());
+
+      return mini;
+    }
+
+    Vector2f getMax() const {
+      Vector2f maxi = _a;
+
+      if(_b.getPosX() > maxi.getPosX())
+        maxi.setPosX(_b.getPosX());
+      if(_b.getPosY() > maxi.getPosY())
+        maxi.setPosY(_b.getPosY());
+
+      return maxi;
+    }
+
     // === Functions ===
     void translate(Vector2f v);
     void homothety(Vector2f v, double zoom);
@@ -84,6 +109,8 @@ class Segment : public Shape {
      * @param v the visitor of the segment
      */
     void accept(VisitorShape *v) const;
+
+    void accept(WorldToScreen *v);
 
     /**
      * @fn operator std::string()

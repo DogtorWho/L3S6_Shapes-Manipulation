@@ -1,5 +1,6 @@
 #include "Triangle.hpp"
 #include "VisitorShape.hpp"
+#include "WorldToScreen.hpp"
 
 #include <cmath>
 
@@ -50,5 +51,9 @@ double Triangle::getArea() const {
 }
 
 void Triangle::accept(VisitorShape *v) const {
+  v->visit(this);
+}
+
+void Triangle::accept(WorldToScreen *v) {
   v->visit(this);
 }

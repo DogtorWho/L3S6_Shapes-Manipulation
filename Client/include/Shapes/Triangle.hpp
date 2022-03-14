@@ -74,6 +74,42 @@ class Triangle : public Shape {
      */
     const Vector2f& getC() const { return _c; }
 
+    void setA(Vector2f a) { _a = a; }
+    void setB(Vector2f b) { _b = b; }
+    void setC(Vector2f c) { _c = c; }
+
+    Vector2f getMin() const {
+      Vector2f mini = _a;
+
+      if(_b.getPosX() < mini.getPosX())
+        mini.setPosX(_b.getPosX());
+      if(_b.getPosY() < mini.getPosY())
+        mini.setPosY(_b.getPosY());
+
+      if(_c.getPosX() < mini.getPosX())
+        mini.setPosX(_c.getPosX());
+      if(_c.getPosY() < mini.getPosY())
+        mini.setPosY(_c.getPosY());
+
+      return mini;
+    }
+
+    Vector2f getMax() const {
+      Vector2f maxi = _a;
+
+      if(_b.getPosX() > maxi.getPosX())
+        maxi.setPosX(_b.getPosX());
+      if(_b.getPosY() > maxi.getPosY())
+        maxi.setPosY(_b.getPosY());
+
+      if(_c.getPosX() > maxi.getPosX())
+        maxi.setPosX(_c.getPosX());
+      if(_c.getPosY() > maxi.getPosY())
+        maxi.setPosY(_c.getPosY());
+
+      return maxi;
+    }
+
     /**
      * @fn const Triangle& operator=(const Triangle &t)
      * @brief overload of the = operator of Triangle
@@ -107,6 +143,8 @@ class Triangle : public Shape {
      * @param v the visitor of the triangle
      */
     void accept(VisitorShape *v) const;
+
+    void accept(WorldToScreen *v);
 
     /**
      * @fn operator std::string()

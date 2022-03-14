@@ -64,6 +64,27 @@ class Circle : public Shape {
      */
     double getRadius() const { return _radius; }
 
+    void setCenter(Vector2f center) { _center = center; }
+    void setRadius(double radius) { _radius = radius; }
+
+    Vector2f getMin() const {
+      Vector2f mini = _center;
+
+      mini.setPosX(_center.getPosX() - _radius);
+      mini.setPosY(_center.getPosY() - _radius);
+
+      return mini;
+    }
+
+    Vector2f getMax() const {
+      Vector2f maxi = _center;
+
+      maxi.setPosX(_center.getPosX() + _radius);
+      maxi.setPosY(_center.getPosY() + _radius);
+
+      return maxi;
+    }
+
     // === Functions ===
     void translate(Vector2f v);
     void homothety(Vector2f v, double zoom);
@@ -89,6 +110,8 @@ class Circle : public Shape {
      * @param v the visitor of the circle
      */
     void accept(VisitorShape *v) const;
+
+    void accept(WorldToScreen *v);
 
     /**
      * @fn operator std::string()

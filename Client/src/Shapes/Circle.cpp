@@ -1,5 +1,6 @@
 #include "Circle.hpp"
 #include "VisitorShape.hpp"
+#include "WorldToScreen.hpp"
 
 #include <cmath>
 
@@ -29,5 +30,9 @@ double Circle::getArea() const {
 }
 
 void Circle::accept(VisitorShape *v) const {
+  v->visit(this);
+}
+
+void Circle::accept(WorldToScreen *v) {
   v->visit(this);
 }
